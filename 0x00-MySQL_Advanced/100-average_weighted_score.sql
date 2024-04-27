@@ -1,5 +1,6 @@
 -- SQL script that creates a stored procedure ComputeAverageWeightedScoreForUser 
 -- that computes and store the average weighted score for a student.
+DELIMITER //
 CREATE PROCEDURE ComputeAverageWeightedScoreForUser(
     IN user_id INT
 )
@@ -24,4 +25,5 @@ BEGIN
     -- Store the result (you can adjust the target table and columns)
     INSERT INTO average_weighted_scores (user_id, score)
     VALUES (user_id, avg_weighted_score);
-END;
+END //
+DELIMITER ;
