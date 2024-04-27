@@ -6,10 +6,8 @@ CREATE PROCEDURE ComputeAverageScoreForUser(
     user_id INT
 )
 BEGIN
-    DECLARE average_score DECIMAL(5, 2);
-    SELECT AVG(score) INTO average_score
-    FROM scores
-    WHERE user_id = user_id;
-    INSERT INTO average_scores (user_id, average_score)
-    VALUES (user_id, average_score);
+    UPDATE users
+   	SET average_score=(SELECT AVG(score) FROM corrections
+			     WHERE corrections.user_id=user_id)
+	WHERE id=user_id;
 END;
