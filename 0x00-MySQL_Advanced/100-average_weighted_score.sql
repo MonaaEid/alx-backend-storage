@@ -22,8 +22,9 @@ BEGIN
     DECLARE avg_weighted_score DECIMAL(10, 2);
     SET avg_weighted_score = total_weighted_score / total_weight;
 
-    -- Store the result (you can adjust the target table and columns)
-    INSERT INTO average_weighted_scores (user_id, score)
-    VALUES (user_id, avg_weighted_score);
+    -- Update the user's average weighted score in the users table
+    UPDATE users
+    SET average_weighted_score = avg_weighted_score
+    WHERE id = user_id;
 END //
 DELIMITER ;
