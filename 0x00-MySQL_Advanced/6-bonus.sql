@@ -5,15 +5,13 @@ CREATE PROCEDURE AddBonus(
     score FLOAT
 )
 BEGIN
-    DECLARE project_id INT;
-
-    SELECT id INTO project_id FROM projects WHERE name = project_name;
-
-    IF project_id IS NULL THEN
-        INSERT INTO projects (name) VALUES (project_name);
-        SET project_id = LAST_INSERT_ID();
+    DECLARE bonus FLOAT;
+    DECLARE new_score FLOAT;
+    SELECT score INTO bonus FROM corrections WHERE project = project_name;
+    SELECT score INTO new_score FROM corrections WHERE project = project_name AND user_id = user_id;
+    IF new_score IS NULL THEN
+        INSERT INTO corrections (user_id, project, score) VALUES (user_id, project_name, score + bonus);
+    ELSE
+        UPDATE corrections SET score = score + bonus WHERE user_id = user_id AND project = project_name;
     END IF;
-
-    INSERT INTO corrections (user_id, project_id, score)
-    VALUES (user_id, project_id, score);
 END;
