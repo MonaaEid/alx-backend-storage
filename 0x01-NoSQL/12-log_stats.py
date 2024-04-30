@@ -26,3 +26,11 @@ def log_stats(logs_collection):
     ])
     top10 = [{"path": doc["_id"], "count": doc["count"]} for doc in top10]
     return (total, get, post, put, patch, delete, head, connect, options, top10)
+
+
+if __name__ == "__main__":
+    from pymongo import MongoClient
+
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    mongo_collection = client.logs.nginx
+    print(f"{log_stats(mongo_collection)} logs")
