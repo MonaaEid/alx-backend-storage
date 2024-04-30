@@ -2,6 +2,7 @@
 """script that provides some stats about Nginx logs stored in MongoDB:"""
 
 
+from pymongo import MongoClient
 def log_stats(logs_collection):
     """
     Provides some stats about Nginx logs stored in MongoDB.
@@ -29,8 +30,6 @@ def log_stats(logs_collection):
 
 
 if __name__ == "__main__":
-    from pymongo import MongoClient
-
     client = MongoClient('mongodb://127.0.0.1:27017')
     mongo_collection = client.logs.nginx
     print(f"{log_stats(mongo_collection)} logs")
