@@ -3,12 +3,15 @@
 
 import redis
 import uuid
-import json
 from typing import Any, Callable, Union
+from functools import wraps
+
 
 def count_calls(method: callable) -> callable:
     """Decorator that counts how many times a function is called"""
     key = method.__qualname__
+
+    @wraps(method)
     def wrapper(self, *args, **kwargs):
         """Wrapper function"""
         self._redis.incr(key)
