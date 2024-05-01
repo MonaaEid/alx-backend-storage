@@ -7,7 +7,7 @@ from typing import Any, Callable, Union
 from functools import wraps
 
 
-def count_calls(method: callable) -> callable:
+def count_calls(method: callable) -> Callable:
     """Decorator that counts how many times a function is called"""
     key = method.__qualname__
 
@@ -19,7 +19,7 @@ def count_calls(method: callable) -> callable:
         return method(self, *args, **kwargs)
     return wrapper
 
-def call_history(method: callable) -> callable:
+def call_history(method: callable) -> Callable:
     """Decorator that stores the history of inputs and outputs for a function"""
     key = method.__qualname__
     @wraps(method)
