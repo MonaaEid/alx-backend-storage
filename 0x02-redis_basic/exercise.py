@@ -1,6 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """cach module"""
 
+import redis
 import uuid
 import json
 from typing import Union
