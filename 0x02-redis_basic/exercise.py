@@ -7,6 +7,30 @@ import json
 from typing import Union
 
 
+count_calls = 0
+
+
+def count_calls(method: callable) -> callable:
+    """Decorator that counts how many times a function is called"""
+    key = method.__qualname__
+    def wrapper(self, *args, **kwargs):
+        """Wrapper function"""
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
+
+def call_history(method: callable) -> callable:
+    """Decorator that stores the history of inputs and outputs for a function"""
+    key = method.__qualname__
+    def wrapper(self, *args, **kwargs):
+        """Wrapper function"""
+        self._redis.rpush(f"{key}:inputs", str(args))
+        result = method(self, *args, **kwargs)
+        self._redis.rpush(f"{key}:outputs", str(result))
+        return result
+    return wrapper
+
+
 class Cache:
     """Cach Class"""
     def __init__(self):
