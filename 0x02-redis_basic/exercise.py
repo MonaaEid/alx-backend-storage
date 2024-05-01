@@ -19,3 +19,18 @@ class Cache:
         dataKey = str(uuid.uuid4())
         self._redis.set(dataKey, data)
         return dataKey
+
+    def get(self, dataKey: str) -> Union[str, bytes, int, float]:
+        """Get data from redis"""
+        data = self._redis.get(dataKey)
+        return data
+
+    def get_str(self, dataKey: str) -> str:
+        """Get data from redis as string"""
+        data = self._redis.get(dataKey)
+        return data.decode("utf-8")
+
+    def get_int(self, dataKey: str) -> int:
+        """Get data from redis as integer"""
+        data = self._redis.get(dataKey)
+        return int(data)
