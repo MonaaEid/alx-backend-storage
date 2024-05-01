@@ -10,14 +10,12 @@ class Cache:
     """Cach Class"""
     def __init__(self):
         """Constructor"""
-        _redis = redis.Redis()
-        self._redis = _redis
+        self._redis = redis.Redis()
         self._redis.flushdb()
-    
 
-    def store(self, data:str) -> str:
+
+    def store(self, data: str) -> None:
         """Store data in redis"""
-        key = str(redis.incr("count"))
-        self._redis.set(key, data)
-        return key
+        self._redis.set("data", data)
+
         
