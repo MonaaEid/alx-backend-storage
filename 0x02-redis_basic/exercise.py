@@ -4,8 +4,7 @@
 import redis
 import uuid
 import json
-from typing import Union
-
+from typing import Any, Callable, Union
 
 def count_calls(method: callable) -> callable:
     """Decorator that counts how many times a function is called"""
@@ -41,9 +40,15 @@ class Cache:
         self._redis.set(dataKey, data)
         return dataKey
 
-    def get(self, dataKey: str) -> Union[str, bytes, int, float]:
+    def get(
+            self,
+            key: str,
+            fn: Callable = None,
+            ) -> Union[str, bytes, int, float]:
         """Get data from redis"""
-        data = self._redis.get(dataKey)
+        data = self._redis.get(key)
+        if fn:
+            return fn(data)
         return data
 
     def get_str(self, dataKey: str) -> str:
