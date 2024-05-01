@@ -7,9 +7,6 @@ import json
 from typing import Union
 
 
-count_calls = 0
-
-
 def count_calls(method: callable) -> callable:
     """Decorator that counts how many times a function is called"""
     key = method.__qualname__
