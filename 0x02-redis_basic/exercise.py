@@ -14,10 +14,10 @@ def count_calls(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         """Wrapper function"""
-        if isinstance(self._redis, redis.Redis):
-            self._redis.incr(key)
+        self._redis.incr(key)
         return method(self, *args, **kwargs)
     return wrapper
+
 
 def call_history(method: Callable) -> Callable:
     """Decorator that stores the history of inputs and outputs for a function"""
@@ -41,6 +41,7 @@ def replay(method: Callable) -> None:
     print(f"{key} was called {count} times:")
     for i, o in zip(inputs, outputs):
         print(f"{key}(*{i.decode('utf-8')}) -> {o.decode('utf-8')}")
+
 
 class Cache:
     """Cach Class"""
