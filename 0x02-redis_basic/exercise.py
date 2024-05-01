@@ -2,9 +2,9 @@
 """cach module"""
 
 import redis
-import requests
+import uuid
 import json
-
+from typing import Union
 
 class Cache:
     """Cach Class"""
@@ -14,8 +14,8 @@ class Cache:
         self._redis.flushdb()
 
 
-    def store(self, data: str) -> None:
+    def store(self, data: Union[str, bytes, int, float]) -> Str:
         """Store data in redis"""
-        self._redis.set("data", data)
-
-        
+        dataKey = str(uuid.uuid4())
+        self._redis.set(dataKey, data)
+        return dataKey
