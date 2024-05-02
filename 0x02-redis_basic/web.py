@@ -12,6 +12,7 @@ def get_page(url: str) -> str:
     response = requests.get(url)
     return response.text
 
+
 def get_list_of_words(subdomains: List[str]) -> List[str]:
     """get_list_of_words: function that takes a list of subdomains
     and returns a list of words"""
