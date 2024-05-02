@@ -4,10 +4,8 @@ content of a particular URL and returns it."""
 
 from typing import List
 import requests
-from functools import wraps
 
 
-@wraps(method)
 def get_list_of_words(subdomains: List[str]) -> List[str]:
     """get_list_of_words: function that takes a list of subdomains
     and returns a list of words"""
@@ -18,7 +16,7 @@ def get_list_of_words(subdomains: List[str]) -> List[str]:
         words.extend(page.split())
     return words
 
-@get_list_of_words
+
 def get_page(url: str) -> str:
     """get_page: function that takes a URL and returns the content
     of that URL"""
