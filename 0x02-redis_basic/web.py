@@ -21,14 +21,3 @@ def get_list_of_words(subdomains: List[str]) -> List[str]:
         page = get_page(url)
         words.extend(page.split())
     return words
-
-def get_words(subdomains: List[str], words: List[str]) -> List[str]:
-    """get_words: function that takes a list of subdomains and a list
-    of words and returns a list of words"""
-    new_words = []
-    for subdomain in subdomains:
-        url = f"http://www.{subdomain}.com"
-        page = get_page(url)
-        new_words.extend(page.split())
-    words.extend(new_words)
-    return words
